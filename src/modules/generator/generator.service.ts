@@ -1,3 +1,5 @@
+// generator.service.ts
+
 import {
   LearningMemory
 } from '../auto-learning/learning.memory';
@@ -46,6 +48,14 @@ type GenerateParams = {
   exploitation?: number;
 
   mode?: string;
+
+  // ==========================================
+  // ✅ FIX
+  // ==========================================
+
+  hotNumbers?: string[];
+
+  coldNumbers?: string[];
 };
 
 

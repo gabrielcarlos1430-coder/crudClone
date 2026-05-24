@@ -1,0 +1,16 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getNumbersFromPage = getNumbersFromPage;
+const axios_1 = __importDefault(require("axios"));
+const env_1 = require("../config/env");
+async function getNumbersFromPage() {
+    const { data } = await axios_1.default.get(env_1.env.scraperUrl, {
+        headers: {
+            "User-Agent": "Mozilla/5.0",
+        },
+    });
+    return data;
+}

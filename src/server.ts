@@ -71,10 +71,7 @@ async function startServer() {
     // ==========================================
     // 🚨 ALERT STREAM (PRODUÇÃO REAL CORE)
     // ==========================================
-    await AlertStreamBootstrap.start({
-      websocket: wss,
-      mode: process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV',
-    });
+    await AlertStreamBootstrap.start();
 
     console.log('🚨 AlertStreamBootstrap iniciado');
 
