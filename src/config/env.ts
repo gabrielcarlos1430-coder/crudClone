@@ -2,70 +2,34 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const getEnv = (key: string, fallback = "") =>
+  process.env[key] ?? fallback;
+
 export const env = {
+  nodeEnv: getEnv("NODE_ENV", "development"),
+  port: Number(getEnv("PORT", "3000")),
 
-  // ==========================================
-  // 🌍 NODE
-  // ==========================================
+  jwtSecret: getEnv("JWT_SECRET", "secret"),
+  jwtRefreshSecret: getEnv("JWT_REFRESH_SECRET", "refresh-secret"),
 
-  nodeEnv:
-    process.env.NODE_ENV ||
-    "development",
+  redisUrl: getEnv("REDIS_URL", "redis://localhost:6379"),
 
-  port:
-    Number(process.env.PORT || 3000),
+  // ⚽ FOOTBALL (BLOQUEIO DE VAZIO)
+  footballApiKey: getEnv("API_FOOTBALL_KEY"),
+  footballApiHost: getEnv("API_FOOTBALL_HOST", "v3.football.api-sports.io"),
 
-  // ==========================================
-  // 🔐 JWT
-  // ==========================================
+  frontUrl: getEnv("FRONT_URL", "http://localhost:5173"),
 
-  jwtSecret:
-    process.env.JWT_SECRET ||
-    "secret",
+  scraperUrl: getEnv(
+    "SCRAPER_URL",
+    "https://portalbrasil.net/jogodobicho/resultado-do-jogo-do-bicho/"
+  ),
 
-  jwtRefreshSecret:
-    process.env.JWT_REFRESH_SECRET ||
-    "refresh-secret",
-
-  // ==========================================
-  // 🔴 REDIS
-  // ==========================================
-
-  redisUrl:
-    process.env.REDIS_URL ||
-    "redis://localhost:6379",
-
-  // ==========================================
-  // ⚽ FOOTBALL API
-  // ==========================================
-
-  footballApiKey:
-    process.env.API_FOOTBALL_KEY || "",
-
-  footballApiHost:
-    process.env.API_FOOTBALL_HOST ||
-    "v3.football.api-sports.io",
-
-  // ==========================================
-  // 🌐 FRONT
-  // ==========================================
-
-  frontUrl:
-    process.env.FRONT_URL ||
-    "http://localhost:5173",
-
-  // ==========================================
-  // 🎲 SCRAPER
-  // ==========================================
-
-  scraperUrl:
-    process.env.SCRAPER_URL ||
-    "https://portalbrasil.net/jogodobicho/resultado-do-jogo-do-bicho/",
-
-  // ==========================================
-  // 🔥 FORCE PRO
-  // ==========================================
-
-  forcePro:
-    process.env.FORCE_PRO === "true"
+  forcePro: getEnv("FORCE_PRO") === "true",
 };
+
+// 🔥 DEBUG FORÇADO (remove depois se quiser)
+console.log("⚽ ENV CHECK:", {
+  key: env.footballApiKey ? "OK" : "MISSING",
+  host: env.footballApiHost
+});
